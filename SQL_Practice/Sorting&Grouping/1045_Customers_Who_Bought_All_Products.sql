@@ -27,3 +27,31 @@ Return the result table in any order.
 */
 
 # Solution
+select customer_id
+from Customer
+group by customer_id
+-- count the number of distinct products bought by each customer
+-- match the number with total number of products in Product table
+having count(distinct product_key) = 
+    (select count(*) from Product);
+
+/* Test Case
+-- Customer table
+| customer_id | product_key |
+| ----------- | ----------- |
+| 1           | 5           |
+| 2           | 6           |
+| 3           | 5           |
+| 3           | 6           |
+| 1           | 6           |
+-- Product table
+| product_key |
+| ----------- |
+| 5           |
+| 6           |
+-- Output table
+| customer_id |
+| ----------- |
+| 1           |
+| 3           |
+*/
