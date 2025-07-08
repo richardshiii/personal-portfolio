@@ -15,19 +15,22 @@ Return k.
 # Solution
 class Solution:
     def removeElement(self, nums: list[int], val: int) -> int:
-        # Use two pointers to iterate through the array;
-        # Use while loop to break the loop when the two pointers meet;
-        # When nums[left] == val, replace it with the last unchecked element (nums[right - 1]), 
-        # move right pointer back 1 step.
-        # Otherwise, increment left pointer       
+        # T: O(n) every element is checked at most once
+        # S: O(1) no extra space is needed  
         left = 0
         right = len(nums)
-
+        # Use two pointers to iterate through the array;
+        # Use while loop to break the loop when the two pointers meet;
         while left < right:
+            # when a target value is found, overwrite it with the last unchecked value
             if nums[left] == val:
                 nums[left] = nums[right - 1]
+                # shrink valid array range by 1
+                # don't move left pointer since the overwritten value can also be target value
                 right -= 1
+            # only move left pointer if current value is not target value
             else: left += 1
+        # return the new length of the array, all values after the right pointer can be ignored
         return right
     
 '''

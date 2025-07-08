@@ -22,6 +22,8 @@ Explanation: "raceacar" is not a palindrome.
 # Solution
 class Solution:
     def isPalindrome(self, s: str) -> bool:
+        # T: O(n) since we iterate through the input string
+        # S: O(n) since we use res to store each scanned character
         # return ture if input string is empty
         if not s:
             return True

@@ -18,19 +18,27 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
+        # T: O(m+n) every element from both arrays are checked once
+        # S: O(1) modification is done in-place, no extra space needed
+        # lastIndex represents the last index & length of the merged array
+        # x, y represents the length of nums1 and nums2, respectively
+        # -1 to accomodate 0-based indexing in Python
         lastIndex = m + n - 1
         x = m - 1
         y = n - 1
-        # z从尾部往前遍历
+        # iterate from the end of the merged array
         for z in range(lastIndex, -1, -1):
-            # nums1没有剩余元素,把nums2剩余的值填入nums1中
+            # if nums1 has no elements left, merge the rest of nums2 into nums1
+            # and move y one place to the left
             if x < 0:
                 nums1[z] = nums2[y]
                 y -= 1
-            # nums2没有剩余元素,则merge完成
+            # if nums2 has no elements left, then the merging is complete, break the loop
             elif y < 0:
                 break
-            # 比较2个array尾部数字的大小,较大值放在array尾端
+            # if nums1 and nums2 are not empty, then compare value at each index,
+            # place the larger integer at the end of the merged array
+            # and move corresponding pointer 1 place to the left
             elif nums1[x] > nums2[y]:
                 nums1[z] = nums1[x]
                 x -= 1

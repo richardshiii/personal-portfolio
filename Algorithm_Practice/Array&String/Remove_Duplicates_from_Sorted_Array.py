@@ -16,11 +16,16 @@ Return k.
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
         '''
+        # T: O(n)
+        # S: O(1) no extra space is used
         l = 1
         
         for r in range(1, len(nums)):
+            # only move the right pointer when a unique number is found
             if nums[r] != nums[r - 1]:
+                # overwrite at position l
                 nums[l] = nums[r]
+                # move l to the next place to overwrite
                 l += 1
         return l
         '''
