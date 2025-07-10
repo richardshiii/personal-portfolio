@@ -1,0 +1,71 @@
+'''
+76. Minimum Window Substring
+Difficulty: Hard
+https://leetcode.com/problems/minimum-window-substring/description/?envType=study-plan-v2&envId=top-interview-150
+
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s 
+such that every character in t (including duplicates) is included in the window. If there is no such substring, 
+return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+Example 1:
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+'''
+# Solution
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        #T: O(n)
+        #S: O(m) m is the number of unique characters in t
+        if t == "":
+            return ""
+        if len(t) > len(s):
+            return ""
+
+        #建立两个hash map
+        #countT记录t中独特的字母和其count 字母为key,count为value
+        #window记录遍历s的窗口中出现的独特字母和其count 字母为key,count为value
+        countT, window = {}, {}
+
+        for char in t:
+            #对于t里的每个字母更新count: 1+该字母已有的count
+            countT[char] = 1 + countT.get(char, 0)
+
+        #开始遍历之前have的字母数为0,need的字母数不变,为countT的长度(# of unique char in t)
+        have, need = 0, len(countT)
+        res, res_len = [-1,-1], float('inf')
+        l = 0
+
+        #右指针遍历s拓宽窗口
+        for r in range(len(s)):
+            #在window中记录字母和其出现的次数
+            c = s[r]
+            window[c] = 1 + window.get(c, 0)
+
+            #判断字母是否是需要的字母 并且该字母的count满足条件
+            if c in countT and window[c] == countT[c]:
+                have += 1
+                #检查have和need是否相等,如果相等则满足题目条件 更新res和最短窗口长度
+                while have == need:
+                    if (r - l + 1) < res_len:
+                        res_len = r - l + 1
+                        res = [l, r]
+                    #抛出最左边字母检查是否有满足条件的更优解
+                    window[s[l]] -= 1
+                    #如果抛出的字母在需要的substring里 并且当前有的字母数不满足条件,have - 1
+                    if s[l] in countT and window[s[l]] < countT[s[l]]:
+                        have -= 1
+                    l += 1
+
+        left, right = res
+        return s[left: right + 1]
+
+'''
+Test Case
+s = "ADOBECODEBANC"
+t = "ABC"
+Output
+"BANC"
+'''
