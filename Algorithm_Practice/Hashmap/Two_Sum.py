@@ -24,18 +24,19 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        #T: O(n); S: O(n)
-        #用哈希表记录nums里元素的value和index 
-        #val : index
+        # T: O(n): iterate the input nums once
+        # S: O(n): worst case, store every number in nums in the hash table
+        # use hash table to record value-index pairs
+        # val : index
         hash = {}
-        #针对nums中的每一个数字:
-        #计算target - num 并在哈希表中寻找这个数值存不存在
-        #如果存在,找出它的index并返回
+        # for every element in nums and its index
+        # calculate the difference between target number and current number
+        # if the difference is in hash table, return its index together with i
         for i, num in enumerate(nums):
             diff = target - num
             if diff in hash:
-                return [i, hash[diff]]
-            #如果在已存在的哈希表中没有找到diff,把下一个值和其index加入哈希表
+                return [hash[diff], i]
+            # otherwise, store current number and its index in the hash map
             hash[num] = i    
 
 '''

@@ -16,28 +16,41 @@ The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to fo
 '''
 # Solution
 class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+    def groupAnagrams(self, strs):
         from collections import defaultdict
-        #T: O(n*m*26) m为str里字符串的个数; n为str里每个字符串的平均长度; count array长度为26
-        #建立一个dict,key和value都默认为list
+        # T: O(n*m*26)
+        # n is the number of words in the strs, m is the avg. length of each word
+        # build character count for each word 
+        # create a dictionary with key & value set as list
         res_dict = defaultdict(list)
-        #记录strs里每一个单词的字母count,字母count相同的单词互为anagram
+        # iterate through each word in the input list
         for word in strs:
-            #count包含26个0,每个0用来记录一个字母的count
+            # create a count lsit if size 26 initialized to 0 (26 characters)
             count = [0] * 26
-            #把每个word里的字母转换成ascii码,减去a的ascii码并计算出该字母的count
+            # Use ASCII values to find correct index: 'a' → 0, 'b' → 1, ..., 'z' → 25
             for char in word:
-                count[ord(char) - ord('a')] += 1
-
-            #因为list不能作为dict的key,把list转为tuple解决该问题
-            #dict的key为每个word的字母count    
+                count[ord(char) - ord('a')] += 1   
+            # convert the list into a tuple so it can be used as a key in dictionary
+            # This tuple uniquely represents the "character makeup" of the word
             key = tuple(count)
-            #dict的value为有相同字母count的word的集合
+            # append the word to the list corresponding to its character-count key
             res_dict[key].append(word)
         
-        #输出结果要求为list
+        # return grouped anagrams as a list
         return list(res_dict.values())
-    
+'''
+Letters:     e a t
+Count:       [1, 0, 0, 0, 1, 0, ..., 1, ..., 0]  # 'a'=1, 'e'=1, 't'=1
+Tuple Key:   (1, 0, 0, 0, 1, ..., 1, ..., 0)
+res_dict → {
+    (1,0,0,...,1,...,1,...): ["eat"]
+}
+Letters:     t e a
+Same key:    (1, 0, 0, 0, 1, ..., 1)
+res_dict → {
+    (1,0,0,...,1,...,1,...): ["eat", "tea"]
+}
+'''    
 '''
 Test Case
 strs = ["eat","tea","tan","ate","nat","bat"]
