@@ -17,30 +17,32 @@ class ListNode:
          self.next = next
 class Solution(object):
     def addTwoNumbers(self, l1, l2):
+        # T:O(n+m): iterate through both input lists
+        # S: O(n+m): use lists to store elements in both input lists
         l1_values = []
         l2_values = []
-        #store value of each node as a char in a list
-        #reverse the list and join each value to get the number
+        # store value of each node as a char in a list
+        # reverse the list and join each value to get the number
         curr = l1
         while curr:
             l1_values.append(str(curr.val))
             curr = curr.next
         l1_values = l1_values[::-1]
         l1_nums = int(''.join(l1_values))
-        #store value of each node as a char in a list
-        #reverse the list and join each value to get the number
+        # store value of each node as a char in a list
+        # reverse the list and join each value to get the number
         curr = l2
         while curr:
             l2_values.append(str(curr.val))
             curr = curr.next
         l2_values = l2_values[::-1]
         l2_nums = int(''.join(l2_values))
-        #get the sum of two numbers
-        #turn each digit into str and reverse to get value of each node
+        # get the sum of two numbers
+        # turn each digit into str and reverse to get value of each node
         new_digits = str(l1_nums + l2_nums)[::-1]
-        #dummy node to point at the head of output linked list
-        #add each digit to the output linked list
-        #return dummy.next
+        # dummy node to point at the head of output linked list
+        # add each digit to the output linked list
+        # return dummy.next
         dummy = ListNode()
         curr = dummy
         for i in new_digits:

@@ -19,29 +19,35 @@ class ListNode:
          self.val = val
          self.next = next
 class Solution:
-    def mergeTwoLists(self, list1):
-        #建一个新的链表 curr指向头节点方便后续操作
+    def mergeTwoLists(self, list1, list2):
+        # T: O(n+m): iterate through both input lists
+        # S: O(1): no extra space is needed
+        # new_head is a dummy node acts as the head of the merged list
         new_head = ListNode()
+        # curr is the moving pointer to build the merged list
         curr = new_head
-        #遍历直到链表末尾
+        # iterate through both linked lists until one is exhausted
         while list1 and list2:
-            #比较两个链表同一个位置节点的值 更小值的节点作为输出链表的下一个节点
+            # compare the current values of both lists
+            # if list1's value is smaller, point curr.next to list1
             if list1.val < list2.val:
                 curr.next = list1
+                # move list1 to its next node 
                 list1 = list1.next
+            # else, point curr.next to list2 & move list2 to its next node
             else:
                 curr.next = list2
                 list2 = list2.next
-            #指向下一个节点
+            # Move curr to the node just added, preparing for the next link
             curr = curr.next
-        #如果两个链表长度不一样
-        #因为输入的是排序链表 如果任意链表有剩余元素必然比之前的值要大 
-        #所以直接连接在输出链表后面即可
+        # after the loop, one list may still have remaining nodes.
+        # since the remaining nodes are already sorted, simply attach the rest.
         if list1:
             curr.next = list1
         else:
             curr.next = list2
-        #new_head只是指向输出链表的头节点,所以return new_head.next
+        # return the merged list, which starts at new_head.next()
+        # skipping the dummy node
         return new_head.next
     
 '''
