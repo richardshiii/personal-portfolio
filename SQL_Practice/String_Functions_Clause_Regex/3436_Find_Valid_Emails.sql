@@ -29,8 +29,8 @@ FROM Users
 -- [a-zA-Z0-9_] character set of alphanumeric values and underscore
 -- +@ matches one preceeding character of @
 -- [a-zA-Z] character set of only letters
--- \.com$ matches .com characters and end of string
-WHERE email REGEXP '^[a-zA-Z0-9_]+@[a-zA-Z]+\.com$'
+-- \\.com$ matches .com characters and end of string
+WHERE email REGEXP '^[a-zA-Z0-9_]+@[a-zA-Z]+\\.com$'
 ORDER BY user_id asc;
 
 /* 
