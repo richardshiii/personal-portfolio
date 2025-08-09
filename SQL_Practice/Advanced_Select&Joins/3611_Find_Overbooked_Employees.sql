@@ -38,6 +38,9 @@ Return the result table ordered by the number of meeting-heavy weeks in descendi
 then by employee name in ascending order.
 */
 # Solution 
+-- calculate weekly meeting hours for each employee
+-- yearweek() function is used to extract week number from given date
+-- 3: mode 3, select Monday as the start of a week instead of Sunday (0)
 with weekly_hours as (
 select employee_id, yearweek(meeting_date, 3) as meeting_week, sum(duration_hours) as weekly_hours
 from meetings
@@ -48,8 +51,10 @@ count(w.weekly_hours) as meeting_heavy_weeks
 from weekly_hours w
 join employees e
 on w.employee_id = e.employee_id
+-- meeting-heavy week is defined by having > 20 weekly meeting hours
 where weekly_hours > 20
 group by employee_id, employee_name, department
+-- extract employees having >=2 meeting-heavy weeks
 having meeting_heavy_weeks > 1
 order by meeting_heavy_weeks DESC, employee_name ASC;
 
