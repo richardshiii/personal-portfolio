@@ -48,8 +48,20 @@ where (
 -- Count must be less than 3 to be in the top three salaries
 ) < 3;
 
+-- alternative solution using dense_rank()
+select d.name as Department, e.name as Employee, e.salary as Salary
+from
+-- create a derived table
+-- use dense_rank() to rank employee within each department 
+( select *, 
+dense_rank() over (partition by departmentId order by salary DESC) as rnk
+from Employee) as e
+-- join two tables and only include top 3 salaries in each department
+join Department d on e.departmentId = d.id
+where e.rnk <= 3;
+
 /* Test Case
--- Employee table
+Employee table = 
 | id | name  | salary | departmentId |
 | -- | ----- | ------ | ------------ |
 | 1  | Joe   | 85000  | 1            |
@@ -59,7 +71,7 @@ where (
 | 5  | Janet | 69000  | 1            |
 | 6  | Randy | 85000  | 1            |
 | 7  | Will  | 70000  | 1            |
--- Department table
+Department table = 
 | id | name  |
 | -- | ----- |
 | 1  | IT    |
