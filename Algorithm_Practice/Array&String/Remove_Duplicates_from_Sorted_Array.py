@@ -18,16 +18,16 @@ class Solution:
         '''
         # T: O(n)
         # S: O(1) no extra space is used
-        l = 1
         
-        for r in range(1, len(nums)):
+        j = 1
+        for i in range(1, len(nums)):
             # only move the right pointer when a unique number is found
-            if nums[r] != nums[r - 1]:
-                # overwrite at position l
-                nums[l] = nums[r]
-                # move l to the next place to overwrite
-                l += 1
-        return l
+            if nums[i] != nums[i - 1]:
+                # overwrite at position j
+                nums[j] = nums[i]
+                j += 1
+            else: i += 1
+        return j
         '''
         exist = set()
         res = 0

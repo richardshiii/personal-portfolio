@@ -22,13 +22,13 @@ class Solution(object):
     def maxSum(self, nums):
         # T: O(n): worst case iterate through each input number
         # S: O(n): worst case store each input number in the hashset
-        # use hashset to help deal with duplicate values
-        # only record positive number in the input array
-        # since we need to maximize the sum 
+
+        # use a set since set only stores unique values
+        # only interested in positive numbers since we want to maximize the sum 
         positiveNumSet = set({n for n in nums if n > 0})
-        # is the positive number hashset is empty, meaning all input numbers are negative
+        # if the set is empty, meaning there is no positive number in the input,
+        # just return the maximum element in the original input
         if len(positiveNumSet) == 0:
-            # choose the maximum value as the max. sum
             return max(nums)
         # otherwise, return the sum of all recorded unique positive number
         else: 

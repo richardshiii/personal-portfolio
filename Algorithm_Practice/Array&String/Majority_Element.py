@@ -29,17 +29,18 @@ class Solution:
         count = 0 # tracks how confident we are that ans is the majority element
 
         for i in nums:
-            # if count drops to 0, then current element can be the majority candidate
+            # if count is 0, then current number could be the majority candidate
+            # if the count drops back to 0, update the candidate
             if count == 0:
                 ans = i
-            # if the number matches current candidate, increase the count
-            # otherwise, decrease the count 
+            # if the number matches current candidate, increase the count by 1
+            # otherwise, decrease the count by 1 
             if ans == i:
                 count += 1
             else:
                 count -= 1
-        # since majority element exists, ans after iterating through the input array must be 
-        # the majority element
+        # since majority element exists, the number recorded in ans after iterating 
+        # through the input array must be the majority element
         return ans
     
 '''
