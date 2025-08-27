@@ -31,9 +31,9 @@ class Solution:
             w = r - l
             h = min(height[l], height[r])
             a = w * h
-            max_area = max(max_area, a)
-            # move the pointer pointing to the shorter line, 
-            # as the area is limited by the shorter height
+            max_area = max(max_area, a) 
+            # the area is limited by the shorter height
+            # so we move the pointer pointing to the shorter height towards the other side
             if height[l] < height[r]:
                 l += 1
             else:
