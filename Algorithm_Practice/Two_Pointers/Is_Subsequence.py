@@ -24,6 +24,14 @@ class Solution:
         # T: O(n) worst case scenario is iterating through t
         # S: O(1) no extra space is needed
         # Use two pointers to iterate from the start of s & t
+        # edge cases
+        if not s and not t:
+            return True
+        if not s:
+            return True
+        if not t:
+            return False
+        
         i = 0
         j = 0
         # Use while loop to iterate through each input string
