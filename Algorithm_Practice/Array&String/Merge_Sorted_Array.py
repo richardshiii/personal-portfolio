@@ -30,6 +30,7 @@ class Solution:
         for z in range(lastIndex, -1, -1):
             # if nums1 has no elements left, merge the rest of nums2 into nums1
             # and move y one place to the left
+            # check boundary condition first to avoid index error
             if x < 0:
                 nums1[z] = nums2[y]
                 y -= 1

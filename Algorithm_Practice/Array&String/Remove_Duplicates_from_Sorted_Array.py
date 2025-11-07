@@ -18,16 +18,22 @@ class Solution:
         '''
         # T: O(n)
         # S: O(1) no extra space is used
-        
-        j = 1
+        # handle edge case: empty array
+        if not nums:
+            return 0
+
+        j = 0
         for i in range(1, len(nums)):
             # only move the right pointer when a unique number is found
+            # i: search for next unique number
+            # j: track last unique number's position
             if nums[i] != nums[i - 1]:
+                # move to the next position for uniqle number
+                j += 1 
                 # overwrite at position j
                 nums[j] = nums[i]
-                j += 1
-            else: i += 1
-        return j
+                    
+        return j+1
         '''
         exist = set()
         res = 0
